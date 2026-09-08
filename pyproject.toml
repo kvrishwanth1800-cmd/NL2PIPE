@@ -1,0 +1,51 @@
+[project]
+name = "nl2pipe"
+version = "0.2.0"
+description = "Describe a data pipeline in plain English; get a working dlt pipeline, sandbox-run on DuckDB, with a plan/diff you approve before it writes anything."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Your Name" }]
+keywords = ["data-engineering", "dlt", "duckdb", "etl", "llm", "agent", "mcp"]
+
+dependencies = [
+    "dlt[duckdb]>=1.0",
+    "duckdb>=1.0",
+    "typer>=0.12",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+# LLM code generation. Without this, the sandbox/plan/diff/quality path still
+# works on any dlt script you pass with --code-file (no API key required).
+llm = ["litellm>=1.40"]
+# Expose the loaded data as an MCP server (Cursor / Claude Desktop can query it).
+mcp = ["mcp>=1.0"]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+
+[project.scripts]
+nl2pipe = "nl2pipe.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/your-username/nl2pipe"
+Issues = "https://github.com/your-username/nl2pipe/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/nl2pipe"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+# B008: function calls in argument defaults — this is the idiomatic Typer
+# pattern (typer.Option(...) / typer.Argument(...)), so it is expected here.
+ignore = ["B008"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]

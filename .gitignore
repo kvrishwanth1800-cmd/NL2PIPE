@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# nl2pipe runtime artifacts
+sandbox.duckdb
+*.duckdb
+pipeline.py
+dq.sql
+.dlt/
+
+# Secrets / env
+.env
