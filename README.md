@@ -7,6 +7,18 @@
 ```
  request ──► generate dlt code ──► run in sandbox ──► show plan/diff
           ──► you approve ──► write pipeline.py ──► auto-generate DQ checks
+## Demo
+
+<!-- Record a ~30s clip of the run below and save it as docs/demo.gif -->
+![nl2pipe demo](docs/demo.gif)
+
+One command, plain English → a working pipeline, reviewed before it touches anything:
+
+​```bash
+nl2pipe build "Fetch posts from https://jsonplaceholder.typicode.com/posts and load them, merge on id"
+​```
+
+**What this proves:** the model wrote real `dlt` code, it ran in an isolated sandbox against the live API, a Terraform-style plan showed exactly what would land (a `posts` table with `user_id, id, title, body`, ~100 rows), and only after approval was `pipeline.py` written — followed by auto-generated data-quality checks confirming the `merge on id` key is non-null and unique. Verified end-to-end on Google Gemini and on the live GitHub Events API (nested JSON auto-flattened, 38 checks generated).
 ```
 
 ## Why this exists (and what it deliberately does *not* do)
@@ -41,7 +53,7 @@ nl2pipe build "Load the public GitHub events API into a table, incremental on cr
 
 ### macOS / Linux
 ```bash
-git clone https://github.com/your-username/nl2pipe && cd nl2pipe
+git clone https://github.com/kvrishwanth1800-cmd/nl2pipe && cd nl2pipe
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[llm]"
 export NL2PIPE_MODEL="claude-sonnet-4-5" ANTHROPIC_API_KEY="sk-..."
