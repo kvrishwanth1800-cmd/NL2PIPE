@@ -10,7 +10,7 @@
 ## Demo
 
 <!-- Record a ~30s clip of the run below and save it as docs/demo.gif -->
-![nl2pipe demo](docs/demo.gif)
+![nl2pipe demo](demo.gif)
 
 One command, plain English → a working pipeline, reviewed before it touches anything:
 
