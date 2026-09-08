@@ -55,6 +55,24 @@ pip install -e .           # base install, no LLM needed
 nl2pipe build --code-file examples/example_pipeline.py --emit-checks dq.sql
 ```
 
+## Providers
+
+Model-agnostic via [litellm](https://github.com/BerriAI/litellm) — set `NL2PIPE_MODEL` and the provider's own key:
+
+| Provider | `NL2PIPE_MODEL` | Key variable |
+|---|---|---|
+| Anthropic | `claude-sonnet-4-5` | `ANTHROPIC_API_KEY` |
+| OpenAI | `gpt-4o` | `OPENAI_API_KEY` |
+| Google Gemini | `gemini/gemini-2.5-flash` | `GEMINI_API_KEY` |
+| OpenRouter | `openrouter/deepseek/deepseek-chat` | `OPENROUTER_API_KEY` |
+| Local (Ollama) | `ollama/llama3.1` | *(none)* |
+
+Provider errors fail cleanly with one actionable line — no stack trace. If you see
+`model ... is no longer available`, the provider retired that name: grab the current
+one from their console and keep the prefix (e.g. `gemini/...`). If a provider says the
+model is *blocked by a guardrail / data policy*, that's an account setting on the
+provider's side, not this tool.
+
 ## Commands
 
 | Command | What it does |

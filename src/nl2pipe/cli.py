@@ -35,7 +35,7 @@ def _load_code(request: str | None, code_file: Path | None, model: str | None) -
         console.print("[red]Provide a REQUEST, or pass --code-file with an existing script.[/]")
         raise typer.Exit(2)
     from .generate import generate_pipeline
-    from .llm import LLMNotConfigured
+    from .llm import LLMCallError, LLMNotConfigured
 
     try:
         with console.status("[cyan]Generating pipeline...[/]"):
@@ -43,6 +43,9 @@ def _load_code(request: str | None, code_file: Path | None, model: str | None) -
     except LLMNotConfigured as exc:
         console.print(f"[red]{escape(str(exc))}[/]")
         raise typer.Exit(3) from exc
+    except LLMCallError as exc:
+        console.print(f"[bold red]✗ {escape(str(exc))}[/]")
+        raise typer.Exit(4) from exc
 
 
 @app.command()

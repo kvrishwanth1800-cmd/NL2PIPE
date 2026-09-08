@@ -1,6 +1,6 @@
 [project]
 name = "nl2pipe"
-version = "0.2.0"
+version = "0.2.1"
 description = "Describe a data pipeline in plain English; get a working dlt pipeline, sandbox-run on DuckDB, with a plan/diff you approve before it writes anything."
 readme = "README.md"
 requires-python = ">=3.10"
